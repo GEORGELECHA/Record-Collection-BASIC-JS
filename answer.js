@@ -22,18 +22,30 @@ const recordCollection = {
 // Only change code below this line
 function updateRecords(records, id, prop, value) {
 
-  if(value === "") {
-    delete records[id][prop];
-  }else if (prop !== "tracks" && value !== "") {
+  //If value is an empty string, delete the given prop property from the album
+  if (value === "") {
+    delete records[id][prop]
+  }
+  //If prop isn't tracks and value isn't an empty string, assign the value to that album's prop.
+  else if (prop !== "tracks" && value !== "") {
     records[id][prop] = value;
-  }else if (prop === "tracks" && value !== ""){
-    if(records[id].hasOwnProperty("tracks") === false){
+  }
+
+  //If prop is tracks and value isn't an empty string, but the album doesn't have a tracks property, create an empty array and add value to it.
+  // here I'll use an else if then nest an if statement within it.
+  //the else if statement checks if prop is tracks and the value is not an empty string.
+  //the nested if checkks if the album has the tracks property, if not, it creates an empty array and adds value to it.
+  else if (prop === "tracks" && value !== "") {
+
+    //the the argument passed below asks the album, "Does this album have a tracks property?"
+    if (records[id].hasOwnProperty("tracks") === false) {
       records[id][prop] = [];
     }
+    //If prop is tracks and value isn't an empty string, add value to the end of the album's existing tracks array.
     records[id][prop].push(value);
   }
 
   return records;
 }
 
-updateRecords(recordCollection, 5439, 'artist', 'ABBA');
+console.log(updateRecords(recordCollection, 5439, 'artist', 'ABBA'));
